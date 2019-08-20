@@ -1,4 +1,3 @@
-
 \documentclass[paper=a4, fontsize=11pt]{article} % A4 paper and 11pt font size
 
 % for pandoc conversion
@@ -35,8 +34,12 @@
 \usepackage{xcolor}
 \definecolor{LightGray}{gray}{0.95}
 
-\usepackage{titlesec}
 \usepackage{url}
+\usepackage{titlesec}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 \setcounter{secnumdepth}{4}
 
 \lstset{ 
@@ -51,9 +54,6 @@ captionpos=b,
 breaklines, 
 caption=\lstname}
 
-
-\usepackage{sectsty} % Allows customizing section commands
-\allsectionsfont{ \normalfont\scshape} % Make all sections centered, the default font and small caps
 \usepackage{float}
 \usepackage{placeins}
 
@@ -503,12 +503,38 @@ Here, we will briefly go over and justify the values which we have chosen for IN
 \newpage
 
 \section{Motor Selection}
-See the guide based on \url{https://www.robotshop.com/community/blog/show/drive-motor-sizing-tutorial}.\\
+This section is based on this guide\footnote{\url{https://www.robotshop.com/community/blog/show/drive-motor-sizing-tutorial}}.\\
 
 Main use of motors is to convert electrical energy or signals to mechanical energy in terms of movement. Thus, proper selection of motor torque is required to ensure proper mechanical movement.\\
 
 One of the big uses of motors is to provide torque to power wheels for motion. A method of calculating the required torque is based on the friction provided between the wheels and surface.\\
 
+\begin{minipage}{\textwidth}
+	\centering
+	\includegraphics[width=0.5\textwidth]{./ramps/ramp1.pdf}
+	\captionof{figure}{Force decomposition}
+\end{minipage}
 
+\begin{align*}
+	F_g &= mg\\
+	F_{g,x} &= F_g \sin(\theta)\\
+	F_{g,y} &= F_g \cos(\theta)
+\end{align*}
+If we now include torque on the wheel and the friction between the wheel and the ramp.\\
 
+\begin{minipage}{\textwidth}
+	\centering
+	\includegraphics[width=0.5\textwidth]{./ramps/ramp2.pdf}
+	\captionof{figure}{Free body diagram}
+\end{minipage}
+\vspace{1em}\\
+Now for the wheel to be rolling without slip the point in which the wheel and ramp come into contact is static ($v = a = 0$). Thus,
+\begin{equation*}
+	F_f = Tr + F_{g,x}
+\end{equation*}
+Finally, summing all forces on the wheel,
+\begin{equation*}
+	\sum F_x = F_f - F_{g,x} = ma
+\end{equation*}
+An important thing to note, is that this all assumes a wheel rolling with no slip. Thus, there is a limit to the frictional force ($F_f \leq \mu_s F_{g,y}$) and hence the overall acceleration is also limited.
 \end{document}

@@ -6,4 +6,6 @@
 *.toc
 *.synctex.gz
 
+_minted-main/*
+
 main.pdf
